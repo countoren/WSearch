@@ -47,6 +47,7 @@ function! WSearchATag(...)
 	let site = EscapeUrl(system("tail -1 .WSearch/".a:1))
 	if len(a:000) ==1
 		let searchPattern = expand('<cword>')
+		let escapedSearchPattern = searchPattern
 	endif
 	if len(a:000) >1
 		let ls =copy(a:000)
@@ -54,7 +55,6 @@ function! WSearchATag(...)
 		let  escapedSearchPattern = join(ls,'+')
 		let  searchPattern = join(ls,' ')
 	endif
-	echo site
 	exec "!touch .WSearch/.lastsearch && echo '".expand(site)."' >> .WSearch/.lastsearch"
 	let site = substitute(site, "{WSearch}" , escapedSearchPattern,"")
 	silent exec "!open ".site
